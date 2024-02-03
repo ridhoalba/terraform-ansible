@@ -1,0 +1,7 @@
+[proxmox]
+192.168.0.100
+192.168.0.105
+
+[all:vars]
+ansible_user=root
+ansible_ssh_private_key_file=C:/Users/albadriyano/labstack

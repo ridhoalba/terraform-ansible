@@ -1,0 +1,5 @@
+- name: bootstrap app server
+  hosts: proxmox
+  become: yes
+  roles:
+    - node-exporter
