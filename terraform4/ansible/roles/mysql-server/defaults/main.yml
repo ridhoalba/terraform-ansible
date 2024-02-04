@@ -1,0 +1,5 @@
+---
+# defaults file for mysql-server
+# defaults file for mysql_server
+mysql_root_password: "Password"
+mysql_version: "8.0"

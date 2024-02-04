@@ -1,9 +1,9 @@
-resource "proxmox_vm_qemu" "server" {
+resource "proxmox_vm_qemu" "web" {
   count = var.vm-count
   target_node = "pve"
-  name = "server-${count.index + 1}"
-  vmid = 202 + (count.index + 1)
-  desc = "Sever"
+  name = "web-${count.index + 1}"
+  vmid = 150 + (count.index + 1)
+  desc = "WEB"
   clone = "ubuntu-jammy"
   full_clone = true
 
@@ -20,7 +20,7 @@ resource "proxmox_vm_qemu" "server" {
 
   bootdisk = "scsi0"
   scsihw = "virtio-scsi-pci"
-  ipconfig0 = "ip=dhcp"
+  ipconfig0 = "ip=192.168.0.60/24,gw=192.168.0.1"
 
   disk {
     size = "10G"
@@ -40,11 +40,11 @@ resource "proxmox_vm_qemu" "server" {
   }
 }
 
-output "vm_info" {
+output "web_info" {
   value = [
-    for vm in proxmox_vm_qemu.server: {
-      hostname = vm.name
-      ip-addr = vm.default_ipv4_address
+    for web in proxmox_vm_qemu.web: {
+      hostname = web.name
+      ip-addr = web.default_ipv4_address
     }
   ]
 }

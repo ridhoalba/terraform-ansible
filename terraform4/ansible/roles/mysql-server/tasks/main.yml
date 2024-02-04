@@ -1,0 +1,35 @@
+---
+# tasks file for mysql-server
+# tasks file for mysql_server
+# tasks file for mysql_server
+- name: Update package repository
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Check if MySQL is installed
+  ansible.builtin.stat:
+    path: /usr/bin/mysql
+  register: mysql_installed
+
+- name: Install MySQL if not installed
+  ansible.builtin.package:
+    name: mysql-server
+    state: present
+  when: not mysql_installed.stat.exists
+
+- name: Install MySQL server
+  ansible.builtin.package:
+    name: mysql-server
+    state: present
+
+- name: Copy MySQL configuration file
+  ansible.builtin.template:
+    src: mysql.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysql.cnf
+  notify: Restart MySQL
+
+- name: Start MySQL service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes

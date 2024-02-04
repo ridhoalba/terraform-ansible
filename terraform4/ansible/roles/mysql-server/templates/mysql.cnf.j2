@@ -1,0 +1,21 @@
+# MySQL Configuration File
+
+[client]
+host     = localhost
+user     = root
+password = {{ mysql_root_password }}
+port     = 3306
+socket   = /var/run/mysqld/mysqld.sock
+
+[mysqld]
+user                           = mysql
+pid-file                       = /var/run/mysqld/mysqld.pid
+socket                         = /var/run/mysqld/mysqld.sock
+port                           = 3306
+datadir                        = /var/lib/mysql
+log_error                      = /var/log/mysql/error.log
+max_connections                = 100
+wait_timeout                   = 600
+interactive_timeout            = 600
+skip_name_resolve
+bind-address                   = 0.0.0.0

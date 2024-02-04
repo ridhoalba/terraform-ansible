@@ -1,0 +1,4 @@
+---
+# vars file for mysql-server
+# vars file for mysql_server
+mysql_root_password: "alba121212"

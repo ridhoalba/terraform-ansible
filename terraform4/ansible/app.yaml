@@ -1,0 +1,10 @@
+- name: web-app server
+  hosts: mysql-server
+  become: yes
+  roles:
+    # - node-exporter
+    # - web-server-apache
+    # - dns-server
+    # - dns-server2
+    # - dns-server
+    - mysql-server

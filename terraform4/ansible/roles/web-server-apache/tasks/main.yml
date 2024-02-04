@@ -1,0 +1,29 @@
+---
+# tasks file for web-server-apache
+- name: check-if apache2 is installed
+  ansible.builtin.command: dpkg-query -l apache2
+  register: apache2_check
+  ignore_errors: true
+
+- name: install apache2
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+  when: apache2_check.rc != 0
+
+- name: ensure apache2 is running
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: check apache2 service status
+  ansible.builtin.service:
+    name: apache2
+    state: started
+
+- name: verify apache2 is running
+  uri:
+    url: http://localhost/
+    status_code: 200
+    method: GET

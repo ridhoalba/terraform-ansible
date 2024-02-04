@@ -1,0 +1,29 @@
+# tasks file for dns-server
+- name: Install bind9
+  apt:
+    name: bind9
+    state: present
+
+- name: Copy named.conf.options file
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify: Restart bind9
+
+- name: Copy named.conf.local file
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: Restart bind9
+
+- name: Copy forward zone file
+  template:
+    src: forward.zone.j2
+    dest: /etc/bind/forward.zone
+  notify: Restart bind9
+
+- name: Copy reverse zone file
+  template:
+    src: reverse.zone.j2
+    dest: /etc/bind/reverse.zone
+  notify: Restart bind9
